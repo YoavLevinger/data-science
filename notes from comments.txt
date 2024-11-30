@@ -1,0 +1,35 @@
+The fire_mag is the numerical equivalent for fire_size_class
+
+# Pandas code for fire_mag
+data.loc[data.fire_size_class == "A", "fire_mag"] = 1/100
+data.loc[data.fire_size_class == "B", "fire_mag"] = 10/100
+data.loc[data.fire_size_class == "C", "fire_mag"] = 100/100
+data.loc[data.fire_size_class == "D", "fire_mag"] = 300/100
+data.loc[data.fire_size_class == "E", "fire_mag"] = 1000/100
+data.loc[data.fire_size_class == "F", "fire_mag"] = 5000/100
+data.loc[data.fire_size_class == "G", "fire_mag"] = 10000/100
+
+
+weather data from the NOAA website:[2] NOAA National Centers for Environmental Information (2001): Integrated Surface Hourly [1992-2015] - ftp://ftp.ncdc.noaa.gov/pub/data/noaa/
+
+
+The temperature is in deg C, wind is in m/s, humidity is in %. The vegetation is actually a categorical data 1-28 representing the dominant vegetation type in the area
+(1:Tropical Evergreen Broadleaf Forest,2:Tropical Deciduous Broadleaf Forest,3:Temperate Evergreen Broadleaf Forest ,
+4:Temperate Evergreen Needleleaf Forest TmpENF,5:Temperate Deciduous Broadleaf Forest,6:Boreal Evergreen Needleleaf Forest,7:Boreal Deciduous Needleleaf Forest, 8:Savanna , 9:C3 Grassland/Steppe, 10:C4 Grassland/Steppe, 11:Dense Shrubland 12:Open Shrubland, 13:Tundra Tundra, 14:Desert,15:Polar Desert/Rock/Ice, 16:Secondary Tropical Evergreen Broadleaf Forest, 17:Secondary Tropical Deciduous Broadleaf Forest, 18:Secondary Temperate Evergreen Broadleaf Forest, 19:Secondary Temperate Evergreen Needleleaf Forest
+20:Secondary Temperate Deciduous Broadleaf Forest, 21:Secondary Boreal Evergreen Needleleaf Forest, 22:Secondary Boreal Deciduous Needleleaf Forest, 23:Water/Rivers Water
+24:C3 Cropland, 25:C4 Cropland, 26:C3 Pastureland, 27:C4 Pastureland, 28:Urban land)
+
+vegetation information? -> Historical land-cover changes and land-use conversions global data set by Meiyappan and Jain | NCAR - Climate Data Guide (ucar.edu)Using the data from the research work stated above, I interpolated the most likely vegetation in a area based on lat/long. 
+
+The 50k limit inclues is the top 50k fires which includes all the major categories. The reason to downsample was because merging data across datasets was very computationally intensive also smaller fires are likely noisy and not very well corelated with vegetation and temperatures. The goal of the dataset is to help build a ML model for predicting catastrophic fires not avoid every single fire therefore a smaller dataset was more computationally and practically feasible.
+
+-- What are the units of the fire size? Is it like in acres? Yes it is in acres.
+
+
+What's the unit of remoteness? miles or km? Answer:In the file Wildfire_att_description.txt that is included in the dataset i callout remoteness as non-dimensional. It is calculated as the euclidean distance to the closest city.Please also see this discussion thread : https://www.kaggle.com/capcloudcoder/us-wildfire-data-plus-other-attributes/discussion/192501#1059227
+
+
+
+
+
+
